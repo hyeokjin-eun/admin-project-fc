@@ -2,10 +2,8 @@ package com.fast.admin.repository;
 
 import com.fast.admin.model.entity.User;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -33,7 +31,7 @@ public class UserRepositoryTest {
 
     @Test
     public void read() {
-        Optional<User> user = userRepository.findById(2L);
+        Optional<User> user = userRepository.findById(1L);
         user.ifPresent(selectUser -> {
             System.out.println("user : " + selectUser);
             System.out.println("email : " + selectUser.getEmail());
