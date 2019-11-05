@@ -32,6 +32,8 @@ public class User {
 
     private String updatedBy;
 
+    //LAZY : 지연 로딩 , EAGER : 즉시 로딩
+    //EAGER 1:1 일 경우 사용하기도 함
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<OrderDetail> orderDetailList;
 }

@@ -4,6 +4,7 @@ import com.fast.admin.model.entity.Item;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,12 +25,13 @@ public class ItemRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void read(){
         Long id = 3L;
 
         Optional<Item> item = itemRepository.findById(id);
         item.ifPresent(selectItem -> {
-            System.out.println(selectItem);
+            selectItem.getOrderDetailList().stream().forEach(System.out::println);
         });
 
     }
