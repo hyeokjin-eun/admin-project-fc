@@ -8,31 +8,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity
-public class User {
+public class OrderGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String account;
-
-    private String password;
-
     private String status;
 
-    private String email;
+    private String orderType;
 
-    private String phoneNumber;
+    private String revAddress;
 
-    private LocalDateTime registeredAt;
+    private String revName;
 
-    private LocalDateTime unregisteredAt;
+    private String paymentType;
+
+    private BigDecimal totalPrice;
+
+    private Integer totalQuantity;
+
+    private LocalDateTime orderAt;
+
+    private LocalDateTime arrivalDate;
 
     private LocalDateTime createdAt;
 
