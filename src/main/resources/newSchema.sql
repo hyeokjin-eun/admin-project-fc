@@ -1,14 +1,3 @@
-CREATE TABLE `category` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `title` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `created_by` varchar(45) COLLATE utf8mb4_bin NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 CREATE TABLE `admin_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `account` varchar(12) COLLATE utf8mb4_bin NOT NULL,
@@ -100,7 +89,7 @@ CREATE TABLE `order_group` (
   `total_price` decimal(12,4) NOT NULL,
   `total_quantity` int(11) NOT NULL,
   `order_at` datetime DEFAULT NULL,
-  `arrval_date` datetime DEFAULT NULL,
+  `arrival_date` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `created_by` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   `updated_at` datetime DEFAULT NULL,

@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @SpringBootTest
 public class UserRepositoryTest {
@@ -19,11 +17,14 @@ public class UserRepositoryTest {
     @Test
     public void create() {
         User user = new User();
-        user.setAccount("TestUser2");
-        user.setEmail("Test@test.com");
-        user.setPhoneNumber("010-1235-1235");
+        user.setAccount("Test01");
+        user.setPassword("Test01");
+        user.setStatus("REGISTERED");
+        user.setEmail("Test01@test.com");
+        user.setPhoneNumber("010-0000-0001");
+        user.setRegisteredAt(LocalDateTime.now());
         user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("admin");
+        user.setCreatedBy("ADMIN");
 
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);
@@ -32,46 +33,7 @@ public class UserRepositoryTest {
     @Test
     @Transactional
     public void read() {
-        Optional<User> user = userRepository.findByAccount("Test3");
-        user.ifPresent(selectUser -> {
-            selectUser.getOrderDetailList().stream().forEach(detail -> {
-                System.out.println(detail.getId());
-            });
-        });
+        User user = userRepository.findFirstByPhoneNumberOrderById("010-0000-0001");
     }
 
-    @Test
-    @Transactional
-    public void update() {
-        Optional<User> user = userRepository.findById(2L);
-        user.ifPresent(selectUser -> {
-            selectUser.setAccount("PPPPP");
-            selectUser.setUpdatedAt(LocalDateTime.now());
-            selectUser.setUpdatedBy("admin Update");
-
-            userRepository.save(selectUser);
-        });
-    }
-
-    @Test
-    @Transactional
-    public void delete() {
-        Optional<User> user = userRepository.findById(2L);
-
-        Assert.isTrue(user.isPresent(), "값을 찾을수 없습니다.");
-
-        user.ifPresent(selectUser -> {
-            userRepository.delete(selectUser);
-        });
-
-        Optional<User> deleteUser = userRepository.findById(2L);
-
-        if (deleteUser.isPresent()) {
-            System.out.println("데이터 존재 : " + deleteUser.get());
-        } else {
-            System.out.println("데이터 삭제 데이터 없음");
-        }
-
-        Assert.isTrue(!deleteUser.isPresent(), "값을 찾을수 없습니다.");
-    }
 }
