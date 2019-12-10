@@ -34,6 +34,14 @@ public class UserRepositoryTest {
     @Transactional
     public void read() {
         User user = userRepository.findFirstByPhoneNumberOrderById("010-0000-0001");
+        if (user != null) {
+            user.getOrderGroupList().stream().forEach(orderGroup -> {
+                System.out.println("수령인" + orderGroup.getRevName());
+                System.out.println("수령지" + orderGroup.getRevAddress());
+                System.out.println("총금액" + orderGroup.getTotalPrice());
+                System.out.println("총수량" + orderGroup.getTotalQuantity());
+            });
+        }
     }
 
 }
