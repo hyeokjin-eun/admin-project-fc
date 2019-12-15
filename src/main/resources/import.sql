@@ -1,4 +1,4 @@
-
+-- 유저 등록
 INSERT INTO	`user` (account, password, status, email, phone_number, registered_at, created_at, created_by) VALUES ('Test01', 'Test01', 'REGISTERED', 'Test01@test.com', '010-0000-0001', NOW(), NOW(), 'ADMIN');
 INSERT INTO	`user` (account, password, status, email, phone_number, registered_at, created_at, created_by) VALUES ('Test02', 'Test02', 'REGISTERED', 'Test02@test.com', '010-0000-0002', NOW(), NOW(), 'ADMIN');
 INSERT INTO	`user` (account, password, status, email, phone_number, registered_at, created_at, created_by) VALUES ('Test03', 'Test03', 'REGISTERED', 'Test03@test.com', '010-0000-0003', NOW(), NOW(), 'ADMIN');

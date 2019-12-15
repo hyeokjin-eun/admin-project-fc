@@ -18,28 +18,40 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "BIGINT(20) COMMENT 'User Index'")
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(12) COMMENT '계정'", nullable = false)
     private String account;
 
+    @Column(columnDefinition = "VARCHAR(100) COMMENT '비밀번호'", nullable = false)
     private String password;
 
+    @Column(columnDefinition = "VARCHAR(50) COMMENT '회원상태'", nullable = false)
     private String status;
 
+    @Column(columnDefinition = "VARCHAR(100) COMMENT '이메일'")
     private String email;
 
+    @Column(columnDefinition = "VARCHAR(13) COMMENT '전화번호'")
     private String phoneNumber;
 
+    @Column(columnDefinition = "DATETIME COMMENT '가입 일자'", nullable = false)
     private LocalDateTime registeredAt;
 
+    @Column(columnDefinition = "DATETIME COMMENT '해지 일자'")
     private LocalDateTime unregisteredAt;
 
+    @Column(columnDefinition = "DATETIME COMMENT '생성 일자'", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "VARCHAR(20) COMMENT '생성 자'", nullable = false)
     private String createdBy;
 
+    @Column(columnDefinition = "DATETIME COMMENT '수정 일자'")
     private LocalDateTime updatedAt;
 
+    @Column(columnDefinition = "VARCHAR(20) COMMENT '수정 자'")
     private String updatedBy;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
