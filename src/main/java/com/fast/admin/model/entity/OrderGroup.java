@@ -1,9 +1,6 @@
 package com.fast.admin.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,6 +18,7 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"user", "orderDetailList"})
 @EntityListeners(AuditingEntityListener.class)
+@Builder
 public class OrderGroup {
 
     @Id

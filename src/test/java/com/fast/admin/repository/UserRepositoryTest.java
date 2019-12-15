@@ -26,6 +26,14 @@ public class UserRepositoryTest{
         user.setCreatedAt(LocalDateTime.now());
         user.setCreatedBy("ADMIN");
 
+        // Builder 적용
+        User u = User.builder()
+                .account("Test01")
+                .password("Test01")
+                .status("REGISTERED")
+                .email("Test01@test.com")
+                .build();
+
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);
     }
