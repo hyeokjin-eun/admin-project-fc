@@ -25,7 +25,6 @@ public class PartnerRepositoryTest {
         partner.setRegisteredAt(LocalDateTime.now());
         partner.setCreatedAt(LocalDateTime.now());
         partner.setCreatedBy("ADMIN");
-        partner.setCategoryId(1L);
 
         Partner newPartner = partnerRepository.save(partner);
     }

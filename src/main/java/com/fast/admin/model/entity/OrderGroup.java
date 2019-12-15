@@ -4,16 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@ToString(exclude = {"user"})
+@ToString(exclude = {"user", "orderDetailList"})
 public class OrderGroup {
 
     @Id
@@ -48,18 +53,25 @@ public class OrderGroup {
     @Column(columnDefinition = "DATETIME COMMENT '도착 예정 일자'")
     private LocalDateTime arrivalDate;
 
+    @CreatedDate
     @Column(columnDefinition = "DATETIME COMMENT '생성 일자'")
     private LocalDateTime createdAt;
 
+    @CreatedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '생성 자'")
     private String createdBy;
 
+    @LastModifiedDate
     @Column(columnDefinition = "DATETIME COMMENT '수정 일자'")
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '수정자'")
     private String updatedBy;
 
     @ManyToOne
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
 }

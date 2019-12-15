@@ -3,6 +3,11 @@ package com.fast.admin.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"orderGroup", "item"})
 public class OrderDetail {
 
     @Id
@@ -31,19 +37,25 @@ public class OrderDetail {
     @Column(columnDefinition = "DECIMAL(12,4) COMMENT '주문 총 금액'")
     private BigDecimal totalPrice;
 
+    @CreatedDate
     @Column(columnDefinition = "DATETIME COMMENT '생성 일자'")
     private LocalDateTime createdAt;
 
+    @CreatedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '생성 자'")
     private String createdBy;
 
+    @LastModifiedDate
     @Column(columnDefinition = "DATETIME COMMENT '수정 일자'")
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '수정 자'")
     private String updatedBy;
 
-    private Long orderGroupId;
+    @ManyToOne
+    private OrderGroup orderGroup;
 
-    private Long itemId;
+    @ManyToOne
+    private Item item;
 }

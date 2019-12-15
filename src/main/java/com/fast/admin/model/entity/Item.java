@@ -3,14 +3,21 @@ package com.fast.admin.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString(exclude = {"orderDetailList", "partner"})
 public class Item {
 
     @Id
@@ -42,17 +49,25 @@ public class Item {
     @Column(columnDefinition = "DATETIME COMMENT '상품 해지 일자'")
     private LocalDateTime unregisteredAt;
 
+    @CreatedDate
     @Column(columnDefinition = "DATETIME COMMENT '생성 일자'")
     private LocalDateTime createdAt;
 
+    @CreatedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '생성 자'")
     private String createdBy;
 
+    @LastModifiedDate
     @Column(columnDefinition = "DATETIME COMMENT '수정 일자'")
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy
     @Column(columnDefinition = "VARCHAR(20) COMMENT '수정 자'")
     private String updatedBy;
 
-    private Long partnerId;
+    @ManyToOne
+    private Partner partner;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    private List<OrderDetail> orderDetailList;
 }
