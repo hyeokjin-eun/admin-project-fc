@@ -1,4 +1,4 @@
-package com.fast.admin.Controller;
+package com.fast.admin.controller;
 
 import com.fast.admin.model.SearchParam;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,7 @@
-package com.fast.admin.Controller;
+package com.fast.admin.controller;
 
 import com.fast.admin.model.SearchParam;
+import com.fast.admin.model.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +23,10 @@ public class GetController {
     @GetMapping("/getMultiParameter")
     public SearchParam getMultiParameter(SearchParam searchParam) {
         return searchParam;
+    }
+
+    @GetMapping("/header")
+    public Header getHeader() {
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 }
