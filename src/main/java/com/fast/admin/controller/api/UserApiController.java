@@ -20,20 +20,21 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
     @Override
     @PostMapping("")
     public Header<UserApiResponse> create(@RequestBody Header<UserApiRequest> request) {
-        log.info("Request : {}", request);
+        log.info("create : {}", request);
         return userApiLogicService.create(request);
     }
 
     @Override
     @GetMapping("{id}")
     public Header<UserApiResponse> read(@PathVariable("id") Long id) {
-        return null;
+        log.info("Read : {}", id);
+        return userApiLogicService.read(id);
     }
 
     @Override
     @PutMapping("")
     public Header<UserApiResponse> update(@RequestBody Header<UserApiRequest> request) {
-        return null;
+        return userApiLogicService.update(request);
     }
 
     @Override

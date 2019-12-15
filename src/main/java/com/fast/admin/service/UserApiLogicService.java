@@ -36,12 +36,29 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
 
     @Override
     public Header<UserApiResponse> read(Long id) {
-        return null;
+        return userRepository.findById(id)
+                .map(user -> response(user))
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
-        return null;
+        UserApiRequest userApiRequest = request.getData();
+        return userRepository.findById(userApiRequest.getId())
+                .map(user -> {
+                    user.setAccount(userApiRequest.getAccount())
+                            .setPassword(userApiRequest.getPassword())
+                            .setStatus(userApiRequest.getStatus())
+                            .setPhoneNumber(userApiRequest.getPhoneNumber())
+                            .setEmail(userApiRequest.getEmail())
+                            .setRegisteredAt(userApiRequest.getRegisteredAt())
+                            .setUnregisteredAt(userApiRequest.getUnregisteredAt());
+
+                    return user;
+                })
+                .map(user -> userRepository.save(user))
+                .map(updateUser -> response(updateUser))
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
