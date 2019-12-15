@@ -34,6 +34,10 @@ public class UserRepositoryTest{
                 .email("Test01@test.com")
                 .build();
 
+        User u2 = new User()
+                .setAccount("Test01")
+                .setPassword("Test01");
+
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);
     }
