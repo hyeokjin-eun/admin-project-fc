@@ -49,12 +49,30 @@ public class OrderDetailApiLogicService implements CrudInterface<OrderDetailApiR
 
     @Override
     public Header<OrderDetailApiResponse> update(Header<OrderDetailApiRequest> request) {
-        return null;
+        OrderDetailApiRequest orderDetailApiRequest = request.getData();
+        return orderDetailRepository.findById(orderDetailApiRequest.getId())
+                .map(orderDetail -> {
+                    orderDetail
+                            .setStatus(orderDetailApiRequest.getStatus())
+                            .setArrivalDate(orderDetailApiRequest.getArrivalDate())
+                            .setQuantity(orderDetailApiRequest.getQuantity())
+                            .setTotalPrice(orderDetailApiRequest.getTotalPrice());
+
+                    return orderDetail;
+                })
+                .map(orderDetail -> orderDetailRepository.save(orderDetail))
+                .map(this::response)
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        return null;
+        return orderDetailRepository.findById(id)
+                .map(orderDetail -> {
+                    orderDetailRepository.delete(orderDetail);
+                    return Header.OK();
+                })
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     private Header<OrderDetailApiResponse> response(OrderDetail orderDetail) {

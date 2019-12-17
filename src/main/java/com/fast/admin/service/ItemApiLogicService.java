@@ -63,6 +63,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
                             .setBrandName(itemApiRequest.getBrandName())
                             .setRegisteredAt(itemApiRequest.getRegisteredAt())
                             .setUnregisteredAt(itemApiRequest.getUnregisteredAt());
+
                     return entityItem;
                 })
                 .map(newEntityItem -> itemRepository.save(newEntityItem))
