@@ -24,6 +24,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
     @Override
     public Header<ItemApiResponse> create(Header<ItemApiRequest> request) {
         ItemApiRequest itemApiRequest = request.getData();
+
         Item item = Item.builder()
                 .status(itemApiRequest.getStatus())
                 .name(itemApiRequest.getName())
@@ -43,13 +44,14 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
     @Override
     public Header<ItemApiResponse> read(Long id) {
         return itemRepository.findById(id)
-                .map(item -> response(item))
+                .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header<ItemApiResponse> update(Header<ItemApiRequest> request) {
         ItemApiRequest itemApiRequest = request.getData();
+
         return itemRepository.findById(itemApiRequest.getId())
                 .map(entityItem -> {
                     entityItem
@@ -64,7 +66,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
                     return entityItem;
                 })
                 .map(newEntityItem -> itemRepository.save(newEntityItem))
-                .map(item -> response(item))
+                .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
