@@ -1,21 +1,16 @@
 package com.fast.admin.service;
 
-import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.entity.OrderDetail;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.OrderDetailApiRequest;
 import com.fast.admin.model.network.response.OrderDetailApiResponse;
 import com.fast.admin.repository.ItemRepository;
-import com.fast.admin.repository.OrderDetailRepository;
 import com.fast.admin.repository.OrderGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderDetailApiLogicService implements CrudInterface<OrderDetailApiRequest, OrderDetailApiResponse> {
-
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+public class OrderDetailApiLogicService extends BaseService<OrderDetailApiRequest, OrderDetailApiResponse, OrderDetail> {
 
     @Autowired
     private OrderGroupRepository orderGroupRepository;
@@ -23,6 +18,11 @@ public class OrderDetailApiLogicService implements CrudInterface<OrderDetailApiR
     @Autowired
     private ItemRepository itemRepository;
 
+    /**
+     * Order Detail Create
+     * @param request Order Detail Info
+     * @return New Order Detail Info
+     */
     @Override
     public Header<OrderDetailApiResponse> create(Header<OrderDetailApiRequest> request) {
         OrderDetailApiRequest orderDetailApiRequest = request.getData();
@@ -36,21 +36,31 @@ public class OrderDetailApiLogicService implements CrudInterface<OrderDetailApiR
                 .item(itemRepository.getOne(orderDetailApiRequest.getItemId()))
                 .build();
 
-        OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
+        OrderDetail newOrderDetail = baseRepository.save(orderDetail);
         return response(newOrderDetail);
     }
 
+    /**
+     * Order Detail Read
+     * @param id Order Detail Id
+     * @return Order Detail Info
+     */
     @Override
     public Header<OrderDetailApiResponse> read(Long id) {
-        return orderDetailRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Order Detail Update
+     * @param request Order Detail Info
+     * @return Order Detail Info
+     */
     @Override
     public Header<OrderDetailApiResponse> update(Header<OrderDetailApiRequest> request) {
         OrderDetailApiRequest orderDetailApiRequest = request.getData();
-        return orderDetailRepository.findById(orderDetailApiRequest.getId())
+        return baseRepository.findById(orderDetailApiRequest.getId())
                 .map(orderDetail -> {
                     orderDetail
                             .setStatus(orderDetailApiRequest.getStatus())
@@ -60,21 +70,31 @@ public class OrderDetailApiLogicService implements CrudInterface<OrderDetailApiR
 
                     return orderDetail;
                 })
-                .map(orderDetail -> orderDetailRepository.save(orderDetail))
+                .map(orderDetail -> baseRepository.save(orderDetail))
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Order Detail Delete
+     * @param id Order Detail Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
-        return orderDetailRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(orderDetail -> {
-                    orderDetailRepository.delete(orderDetail);
+                    baseRepository.delete(orderDetail);
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Header <Order Detail Api Response> Create
+     * @param orderDetail Order Detail Info
+     * @return Header <Order Detail Api Response>
+     */
     private Header<OrderDetailApiResponse> response(OrderDetail orderDetail) {
         OrderDetailApiResponse orderDetailApiResponse = OrderDetailApiResponse.builder()
                 .id(orderDetail.getId())

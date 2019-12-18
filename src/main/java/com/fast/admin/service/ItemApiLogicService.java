@@ -1,11 +1,9 @@
 package com.fast.admin.service;
 
-import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.entity.Item;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.ItemApiRequest;
 import com.fast.admin.model.network.response.ItemApiResponse;
-import com.fast.admin.repository.ItemRepository;
 import com.fast.admin.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +11,16 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
-
-    @Autowired
-    private ItemRepository itemRepository;
+public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResponse, Item> {
 
     @Autowired
     private PartnerRepository partnerRepository;
 
+    /**
+     * Item Create
+     * @param request Item Info
+     * @return New Item Info
+     */
     @Override
     public Header<ItemApiResponse> create(Header<ItemApiRequest> request) {
         ItemApiRequest itemApiRequest = request.getData();
@@ -36,23 +36,33 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
                 .partner(partnerRepository.getOne(itemApiRequest.getPartnerId()))
                 .build();
 
-        Item newItem = itemRepository.save(item);
+        Item newItem = baseRepository.save(item);
 
         return response(newItem);
     }
 
+    /**
+     * Item Read
+     * @param id Item Id
+     * @return Item Info
+     */
     @Override
     public Header<ItemApiResponse> read(Long id) {
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Item Update
+     * @param request Item Info
+     * @return Item Info
+     */
     @Override
     public Header<ItemApiResponse> update(Header<ItemApiRequest> request) {
         ItemApiRequest itemApiRequest = request.getData();
 
-        return itemRepository.findById(itemApiRequest.getId())
+        return baseRepository.findById(itemApiRequest.getId())
                 .map(entityItem -> {
                     entityItem
                             .setStatus(itemApiRequest.getStatus())
@@ -66,21 +76,31 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
 
                     return entityItem;
                 })
-                .map(newEntityItem -> itemRepository.save(newEntityItem))
+                .map(newEntityItem -> baseRepository.save(newEntityItem))
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Item Delete
+     * @param id Item Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(item -> {
-                    itemRepository.delete(item);
+                    baseRepository.delete(item);
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Header <Item Api Response> Create
+     * @param item Item Info
+     * @return Header <Item Api Response>
+     */
     private Header<ItemApiResponse> response(Item item) {
         ItemApiResponse itemApiResponse = ItemApiResponse.builder()
                 .id(item.getId())

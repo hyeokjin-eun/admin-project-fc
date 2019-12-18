@@ -1,24 +1,24 @@
 package com.fast.admin.service;
 
-import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.entity.OrderGroup;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.OrderGroupApiRequest;
 import com.fast.admin.model.network.response.OrderGroupApiResponse;
-import com.fast.admin.repository.OrderGroupRepository;
 import com.fast.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiRequest, OrderGroupApiResponse> {
-
-    @Autowired
-    private OrderGroupRepository orderGroupRepository;
+public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest, OrderGroupApiResponse, OrderGroup> {
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Order Group Create
+     * @param request Order Group Info
+     * @return New Order Group Info
+     */
     @Override
     public Header<OrderGroupApiResponse> create(Header<OrderGroupApiRequest> request) {
         OrderGroupApiRequest orderGroupApiRequest = request.getData();
@@ -36,23 +36,33 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
                 .user(userRepository.getOne(orderGroupApiRequest.getUserId()))
                 .build();
 
-        OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);
+        OrderGroup newOrderGroup = baseRepository.save(orderGroup);
 
         return response(newOrderGroup);
     }
 
+    /**
+     * Order Group Read
+     * @param id Order Group Id
+     * @return Order Group Info
+     */
     @Override
     public Header<OrderGroupApiResponse> read(Long id) {
-        return orderGroupRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Order Group Update
+     * @param request Order Group Info
+     * @return Order Group Info
+     */
     @Override
     public Header<OrderGroupApiResponse> update(Header<OrderGroupApiRequest> request) {
         OrderGroupApiRequest orderGroupApiRequest = request.getData();
 
-        return orderGroupRepository.findById(orderGroupApiRequest.getId())
+        return baseRepository.findById(orderGroupApiRequest.getId())
                 .map(orderGroup -> {
                     orderGroup
                             .setStatus(orderGroupApiRequest.getStatus())
@@ -67,21 +77,31 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
 
                     return orderGroup;
                 })
-                .map(orderGroup -> orderGroupRepository.save(orderGroup))
+                .map(orderGroup -> baseRepository.save(orderGroup))
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Order Group Delete
+     * @param id Order Group Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
-        return orderGroupRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(orderGroup -> {
-                    orderGroupRepository.delete(orderGroup);
+                    baseRepository.delete(orderGroup);
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터없음"));
     }
 
+    /**
+     * Header <Order Group Api Response> Create
+     * @param orderGroup Order Group Info
+     * @return Header <Order Group Api Response>
+     */
     private Header<OrderGroupApiResponse> response(OrderGroup orderGroup) {
         OrderGroupApiResponse orderGroupApiResponse = OrderGroupApiResponse.builder()
                 .id(orderGroup.getId())

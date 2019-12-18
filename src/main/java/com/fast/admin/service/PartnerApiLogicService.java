@@ -1,24 +1,24 @@
 package com.fast.admin.service;
 
-import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.entity.Partner;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.PartnerApiRequest;
 import com.fast.admin.model.network.response.PartnerApiResponse;
 import com.fast.admin.repository.CategoryRepository;
-import com.fast.admin.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PartnerApiLogicService implements CrudInterface<PartnerApiRequest, PartnerApiResponse> {
-
-    @Autowired
-    private PartnerRepository partnerRepository;
+public class PartnerApiLogicService extends BaseService<PartnerApiRequest, PartnerApiResponse, Partner> {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
+    /**
+     * Partner Create
+     * @param request Partner Info
+     * @return New Partner Info
+     */
     @Override
     public Header<PartnerApiResponse> create(Header<PartnerApiRequest> request) {
         PartnerApiRequest partnerApiRequest = request.getData();
@@ -36,23 +36,33 @@ public class PartnerApiLogicService implements CrudInterface<PartnerApiRequest, 
                 .category(categoryRepository.getOne(partnerApiRequest.getCategoryId()))
                 .build();
 
-        Partner newPartner = partnerRepository.save(partner);
+        Partner newPartner = baseRepository.save(partner);
 
         return response(newPartner);
     }
 
+    /**
+     * Partner Read
+     * @param id Partner Id
+     * @return Partner Info
+     */
     @Override
     public Header<PartnerApiResponse> read(Long id) {
-        return partnerRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Partner Update
+     * @param request Partner Info
+     * @return Partner Info
+     */
     @Override
     public Header<PartnerApiResponse> update(Header<PartnerApiRequest> request) {
         PartnerApiRequest partnerApiRequest = request.getData();
 
-        return partnerRepository.findById(partnerApiRequest.getId())
+        return baseRepository.findById(partnerApiRequest.getId())
                 .map(partner -> {
                     partner
                             .setName(partnerApiRequest.getName())
@@ -67,21 +77,31 @@ public class PartnerApiLogicService implements CrudInterface<PartnerApiRequest, 
 
                     return partner;
                 })
-                .map(partner -> partnerRepository.save(partner))
+                .map(partner -> baseRepository.save(partner))
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Partner Delete
+     * @param id Partner Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
-        return partnerRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(partner -> {
-                    partnerRepository.delete(partner);
+                    baseRepository.delete(partner);
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Header <Partner Api Response> Create
+     * @param partner Partner Info
+     * @return Header <Partner Api Response>
+     */
     public Header<PartnerApiResponse> response(Partner partner) {
         PartnerApiResponse partnerApiResponse = PartnerApiResponse.builder()
                 .id(partner.getId())
