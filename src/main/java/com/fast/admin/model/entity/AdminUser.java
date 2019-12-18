@@ -55,19 +55,19 @@ public class AdminUser {
     @Column(columnDefinition = "DATETIME COMMENT '해지 일자'")
     private LocalDateTime unregisteredAt;
 
+    @CreatedDate
     @Column(columnDefinition = "DATETIME COMMENT '생성 일자'")
     private LocalDateTime createdAt;
 
     @CreatedBy
-    @CreatedDate
     @Column(columnDefinition = "VARCHAR(20) COMMENT '생성 자'")
     private String createdBy;
 
+    @LastModifiedDate
     @Column(columnDefinition = "DATETIME COMMENT '수정 일자'")
     private LocalDateTime updatedAt;
 
     @LastModifiedBy
-    @LastModifiedDate
     @Column(columnDefinition = "VARCHAR(20) COMMENT '수정 자'")
     private String updatedBy;
 }
