@@ -17,6 +17,11 @@ public class AdminUserApiController implements CrudInterface<AdminUserApiRequest
     @Autowired
     private AdminUserApiLogicService adminUserApiLogicService;
 
+    /**
+     * Admin User Create
+     * @param request Admin User Info
+     * @return New Admin User Info
+     */
     @Override
     @PostMapping("")
     public Header<AdminUserApiResponse> create(@RequestBody Header<AdminUserApiRequest> request) {
@@ -24,6 +29,11 @@ public class AdminUserApiController implements CrudInterface<AdminUserApiRequest
         return adminUserApiLogicService.create(request);
     }
 
+    /**
+     * Admin User Read
+     * @param id Admin User Id
+     * @return Admin User Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<AdminUserApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class AdminUserApiController implements CrudInterface<AdminUserApiRequest
         return adminUserApiLogicService.read(id);
     }
 
+    /**
+     * Admin User Update
+     * @param request Admin User Info
+     * @return Admin User Info
+     */
     @Override
     @PutMapping("")
     public Header<AdminUserApiResponse> update(@RequestBody Header<AdminUserApiRequest> request) {
@@ -38,6 +53,11 @@ public class AdminUserApiController implements CrudInterface<AdminUserApiRequest
         return adminUserApiLogicService.update(request);
     }
 
+    /**
+     * Admin User Delete
+     * @param id Admin User Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {

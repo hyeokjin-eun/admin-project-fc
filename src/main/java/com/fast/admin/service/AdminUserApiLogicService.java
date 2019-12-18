@@ -15,6 +15,11 @@ public class AdminUserApiLogicService implements CrudInterface<AdminUserApiReque
     @Autowired
     private AdminUserRepository adminUserRepository;
 
+    /**
+     * Admin User Create
+     * @param request Admin User Info
+     * @return New Admin User Info
+     */
     @Override
     public Header<AdminUserApiResponse> create(Header<AdminUserApiRequest> request) {
         AdminUserApiRequest adminUserApiRequest = request.getData();
@@ -36,6 +41,11 @@ public class AdminUserApiLogicService implements CrudInterface<AdminUserApiReque
         return response(newAdminUser);
     }
 
+    /**
+     * Admin User Read
+     * @param id Admin User Id
+     * @return Admin User Info
+     */
     @Override
     public Header<AdminUserApiResponse> read(Long id) {
         return adminUserRepository.findById(id)
@@ -43,6 +53,11 @@ public class AdminUserApiLogicService implements CrudInterface<AdminUserApiReque
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Admin User Update
+     * @param request Admin User Info
+     * @return Admin User Info
+     */
     @Override
     public Header<AdminUserApiResponse> update(Header<AdminUserApiRequest> request) {
         AdminUserApiRequest adminUserApiRequest = request.getData();
@@ -66,6 +81,11 @@ public class AdminUserApiLogicService implements CrudInterface<AdminUserApiReque
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Admin User Delete
+     * @param id Admin User Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
         return adminUserRepository.findById(id)
@@ -76,6 +96,11 @@ public class AdminUserApiLogicService implements CrudInterface<AdminUserApiReque
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Header <Admin User Api Response> Create
+     * @param adminUser Admin User Info
+     * @return Header <Admin User Api Response>
+     */
     private Header<AdminUserApiResponse> response(AdminUser adminUser) {
         AdminUserApiResponse adminUserApiResponse = AdminUserApiResponse.builder()
                 .id(adminUser.getId())

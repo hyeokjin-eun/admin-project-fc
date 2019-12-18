@@ -17,6 +17,11 @@ public class CategoryApiController implements CrudInterface<CategoryApiRequest, 
     @Autowired
     private CategoryApiLogicService categoryApiLogicService;
 
+    /**
+     * Category Create
+     * @param request Category Info
+     * @return New Category Info
+     */
     @Override
     @PostMapping("")
     public Header<CategoryApiResponse> create(@RequestBody Header<CategoryApiRequest> request) {
@@ -24,6 +29,11 @@ public class CategoryApiController implements CrudInterface<CategoryApiRequest, 
         return categoryApiLogicService.create(request);
     }
 
+    /**
+     * Category Read
+     * @param id Category Id
+     * @return Category Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<CategoryApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class CategoryApiController implements CrudInterface<CategoryApiRequest, 
         return categoryApiLogicService.read(id);
     }
 
+    /**
+     * Category Update
+     * @param request Category Info
+     * @return Category Info
+     */
     @Override
     @PutMapping("")
     public Header<CategoryApiResponse> update(@RequestBody Header<CategoryApiRequest> request) {
@@ -38,6 +53,11 @@ public class CategoryApiController implements CrudInterface<CategoryApiRequest, 
         return categoryApiLogicService.update(request);
     }
 
+    /**
+     * Category Delete
+     * @param id Category Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {

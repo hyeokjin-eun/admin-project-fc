@@ -17,6 +17,11 @@ public class PartnerApiController implements CrudInterface<PartnerApiRequest, Pa
     @Autowired
     private PartnerApiLogicService partnerApiLogicService;
 
+    /**
+     * Partner Create
+     * @param request Partner Info
+     * @return New Partner Info
+     */
     @Override
     @PostMapping("")
     public Header<PartnerApiResponse> create(@RequestBody Header<PartnerApiRequest> request) {
@@ -24,6 +29,11 @@ public class PartnerApiController implements CrudInterface<PartnerApiRequest, Pa
         return partnerApiLogicService.create(request);
     }
 
+    /**
+     * Partner Read
+     * @param id Partner Id
+     * @return Partner Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<PartnerApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class PartnerApiController implements CrudInterface<PartnerApiRequest, Pa
         return partnerApiLogicService.read(id);
     }
 
+    /**
+     * Partner Update
+     * @param request Partner Info
+     * @return Partner Info
+     */
     @Override
     @PutMapping("")
     public Header<PartnerApiResponse> update(@RequestBody Header<PartnerApiRequest> request) {
@@ -38,6 +53,11 @@ public class PartnerApiController implements CrudInterface<PartnerApiRequest, Pa
         return partnerApiLogicService.update(request);
     }
 
+    /**
+     * Partner Delete
+     * @param id Partner Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {

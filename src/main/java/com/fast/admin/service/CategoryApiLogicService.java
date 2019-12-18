@@ -15,6 +15,11 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
     @Autowired
     private CategoryRepository categoryRepository;
 
+    /**
+     * Category Create
+     * @param request Category Info
+     * @return New Category Info
+     */
     @Override
     public Header<CategoryApiResponse> create(Header<CategoryApiRequest> request) {
         CategoryApiRequest categoryApiRequest = request.getData();
@@ -29,6 +34,11 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
         return response(newCategory);
     }
 
+    /**
+     * Category Read
+     * @param id Category Id
+     * @return Category Info
+     */
     @Override
     public Header<CategoryApiResponse> read(Long id) {
         return categoryRepository.findById(id)
@@ -36,6 +46,11 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Category Update
+     * @param request Category Info
+     * @return Category Info
+     */
     @Override
     public Header<CategoryApiResponse> update(Header<CategoryApiRequest> request) {
         CategoryApiRequest categoryApiRequest = request.getData();
@@ -53,6 +68,11 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Category Delete
+     * @param id Category Id
+     * @return Header
+     */
     @Override
     public Header delete(Long id) {
         return categoryRepository.findById(id)
@@ -63,6 +83,11 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
+    /**
+     * Header <Category Api Response> Create
+     * @param category Category Info
+     * @return Header <Category Api Response>
+     */
     private Header<CategoryApiResponse> response(Category category) {
         CategoryApiResponse categoryApiResponse = CategoryApiResponse.builder()
                 .id(category.getId())

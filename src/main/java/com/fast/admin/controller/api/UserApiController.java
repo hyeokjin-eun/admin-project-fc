@@ -17,6 +17,11 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
     @Autowired
     private UserApiLogicService userApiLogicService;
 
+    /**
+     * User Create
+     * @param request User Info
+     * @return New User Info
+     */
     @Override
     @PostMapping("")
     public Header<UserApiResponse> create(@RequestBody Header<UserApiRequest> request) {
@@ -24,6 +29,11 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
         return userApiLogicService.create(request);
     }
 
+    /**
+     * User Read
+     * @param id User Id
+     * @return User Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<UserApiResponse> read(@PathVariable("id") Long id) {
@@ -31,6 +41,11 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
         return userApiLogicService.read(id);
     }
 
+    /**
+     * User Update
+     * @param request User Info
+     * @return User Info
+     */
     @Override
     @PutMapping("")
     public Header<UserApiResponse> update(@RequestBody Header<UserApiRequest> request) {
@@ -38,6 +53,11 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
         return userApiLogicService.update(request);
     }
 
+    /**
+     * User Delete
+     * @param id User Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable("id") Long id) {

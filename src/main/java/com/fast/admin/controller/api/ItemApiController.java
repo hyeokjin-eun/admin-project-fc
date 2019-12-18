@@ -17,6 +17,11 @@ public class ItemApiController implements CrudInterface<ItemApiRequest, ItemApiR
     @Autowired
     private ItemApiLogicService itemApiLogicService;
 
+    /**
+     * Item Create
+     * @param request Item Info
+     * @return New Item Info
+     */
     @Override
     @PostMapping("")
     public Header<ItemApiResponse> create(@RequestBody Header<ItemApiRequest> request) {
@@ -24,6 +29,11 @@ public class ItemApiController implements CrudInterface<ItemApiRequest, ItemApiR
         return itemApiLogicService.create(request);
     }
 
+    /**
+     * Item Read
+     * @param id Item Id
+     * @return Item Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<ItemApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class ItemApiController implements CrudInterface<ItemApiRequest, ItemApiR
         return itemApiLogicService.read(id);
     }
 
+    /**
+     * Item Update
+     * @param request Item Info
+     * @return Item Info
+     */
     @Override
     @PutMapping("")
     public Header<ItemApiResponse> update(@RequestBody Header<ItemApiRequest> request) {
@@ -38,6 +53,11 @@ public class ItemApiController implements CrudInterface<ItemApiRequest, ItemApiR
         return itemApiLogicService.update(request);
     }
 
+    /**
+     * Item Delete
+     * @param id Item Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {

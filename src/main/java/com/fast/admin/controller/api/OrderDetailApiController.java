@@ -17,6 +17,11 @@ public class OrderDetailApiController implements CrudInterface<OrderDetailApiReq
     @Autowired
     private OrderDetailApiLogicService orderDetailApiLogicService;
 
+    /**
+     * Order Detail Create
+     * @param request Order Detail Info
+     * @return New Order Detail Info
+     */
     @Override
     @PostMapping("")
     public Header<OrderDetailApiResponse> create(@RequestBody Header<OrderDetailApiRequest> request) {
@@ -24,6 +29,11 @@ public class OrderDetailApiController implements CrudInterface<OrderDetailApiReq
         return orderDetailApiLogicService.create(request);
     }
 
+    /**
+     * Order Detail Read
+     * @param id Order Detail Id
+     * @return Order Detail Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<OrderDetailApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class OrderDetailApiController implements CrudInterface<OrderDetailApiReq
         return orderDetailApiLogicService.read(id);
     }
 
+    /**
+     * Order Detail Update
+     * @param request Order Detail Info
+     * @return Order Detail Info
+     */
     @Override
     @PutMapping("")
     public Header<OrderDetailApiResponse> update(@RequestBody Header<OrderDetailApiRequest> request) {
@@ -38,6 +53,11 @@ public class OrderDetailApiController implements CrudInterface<OrderDetailApiReq
         return orderDetailApiLogicService.update(request);
     }
 
+    /**
+     * Order Detail Delete
+     * @param id Order Detail Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {

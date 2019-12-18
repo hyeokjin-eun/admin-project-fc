@@ -17,6 +17,11 @@ public class OrderGroupApiController implements CrudInterface<OrderGroupApiReque
     @Autowired
     private OrderGroupApiLogicService orderGroupApiLogicService;
 
+    /**
+     * Order Group Create
+     * @param request Order Group Info
+     * @return New Order Group Info
+     */
     @Override
     @PostMapping("")
     public Header<OrderGroupApiResponse> create(@RequestBody Header<OrderGroupApiRequest> request) {
@@ -24,6 +29,11 @@ public class OrderGroupApiController implements CrudInterface<OrderGroupApiReque
         return orderGroupApiLogicService.create(request);
     }
 
+    /**
+     * Order Group Read
+     * @param id Order Group Id
+     * @return Order Group Info
+     */
     @Override
     @GetMapping("{id}")
     public Header<OrderGroupApiResponse> read(@PathVariable Long id) {
@@ -31,6 +41,11 @@ public class OrderGroupApiController implements CrudInterface<OrderGroupApiReque
         return orderGroupApiLogicService.read(id);
     }
 
+    /**
+     * Order Group Update
+     * @param request Order Group Info
+     * @return Order Group Info
+     */
     @Override
     @PutMapping("")
     public Header<OrderGroupApiResponse> update(@RequestBody Header<OrderGroupApiRequest> request) {
@@ -38,6 +53,11 @@ public class OrderGroupApiController implements CrudInterface<OrderGroupApiReque
         return orderGroupApiLogicService.update(request);
     }
 
+    /**
+     * Order Group Delete
+     * @param id Order Group Id
+     * @return Header
+     */
     @Override
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {
