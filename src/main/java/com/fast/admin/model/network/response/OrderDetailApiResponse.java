@@ -1,5 +1,6 @@
 package com.fast.admin.model.network.response;
 
+import com.fast.admin.model.enumClass.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class OrderDetailApiResponse {
 
     private Long id;
 
-    private String status;
+    private OrderStatus status;
 
     private LocalDateTime arrivalDate;
 

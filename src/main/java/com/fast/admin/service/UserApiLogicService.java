@@ -2,6 +2,7 @@ package com.fast.admin.service;
 
 import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.entity.User;
+import com.fast.admin.model.enumClass.UserStatus;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.UserApiRequest;
 import com.fast.admin.model.network.response.UserApiResponse;
@@ -25,7 +26,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         User user = User.builder()
                 .account(userApiRequest.getAccount())
                 .password(userApiRequest.getPassword())
-                .status("REGISTERED")
+                .status(UserStatus.REGISTERED)
                 .phoneNumber(userApiRequest.getPhoneNumber())
                 .email(userApiRequest.getEmail())
                 .registeredAt(LocalDateTime.now())

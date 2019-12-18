@@ -1,5 +1,7 @@
 package com.fast.admin.model.network.response;
 
+import com.fast.admin.model.enumClass.AdminUserRole;
+import com.fast.admin.model.enumClass.AdminUserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +21,9 @@ public class AdminUserApiResponse {
 
     private String password;
 
-    private String status;
+    private AdminUserStatus status;
 
-    private String role;
+    private AdminUserRole role;
 
     private LocalDateTime lastLoginAt;
 

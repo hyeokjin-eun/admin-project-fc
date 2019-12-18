@@ -1,5 +1,6 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.ItemStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,8 +29,9 @@ public class Item {
     @Column(columnDefinition = "BIGINT(20) COMMENT 'Item Index'")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '상품상태'")
-    private String status;
+    private ItemStatus status;
 
     @Column(columnDefinition = "VARCHAR(100) COMMENT '상품 명'")
     private String name;

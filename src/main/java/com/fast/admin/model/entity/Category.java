@@ -1,5 +1,6 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.CategoryType;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -27,8 +28,9 @@ public class Category {
     @Column(columnDefinition = "BIGINT(20) COMMENT 'Category Index'")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '카테고리 타입'", nullable = false)
-    private String type;
+    private CategoryType type;
 
     @Column(columnDefinition = "VARCHAR(100) COMMENT '카테고리 명'", nullable = false)
     private String title;

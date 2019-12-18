@@ -1,5 +1,8 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.OrderStatus;
+import com.fast.admin.model.enumClass.OrderType;
+import com.fast.admin.model.enumClass.PaymentType;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,11 +31,13 @@ public class OrderGroup {
     @Column(columnDefinition = "BIGINT(20) COMMENT 'OrderGroup Index'")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '주문 상태'")
-    private String status;
+    private OrderStatus status;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '주문 타임(일괄, 개별)'")
-    private String orderType;
+    private OrderType orderType;
 
     @Column(columnDefinition = "TEXT COMMENT '배송지 주소'")
     private String revAddress;
@@ -40,8 +45,9 @@ public class OrderGroup {
     @Column(columnDefinition = "VARCHAR(50) COMMENT '수령인'")
     private String revName;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '납부 방법'")
-    private String paymentType;
+    private PaymentType paymentType;
 
     @Column(columnDefinition = "DECIMAL(12,4) COMMENT '전체 금액'")
     private BigDecimal totalPrice;

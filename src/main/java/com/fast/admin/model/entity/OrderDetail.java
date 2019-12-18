@@ -1,5 +1,6 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.OrderStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,7 +29,7 @@ public class OrderDetail {
     private Long id;
 
     @Column(columnDefinition = "VARCHAR(50) COMMENT '주문상태'")
-    private String status;
+    private OrderStatus status;
 
     @Column(columnDefinition = "DATETIME COMMENT '도착 예정 일자'")
     private LocalDateTime arrivalDate;

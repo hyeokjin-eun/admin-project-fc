@@ -1,5 +1,6 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.UserStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -33,8 +34,9 @@ public class User {
     @Column(columnDefinition = "VARCHAR(100) COMMENT '비밀번호'", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '회원상태'", nullable = false)
-    private String status;
+    private UserStatus status;
 
     @Column(columnDefinition = "VARCHAR(100) COMMENT '이메일'")
     private String email;

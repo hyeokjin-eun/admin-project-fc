@@ -1,5 +1,6 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.PartnerStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -30,8 +31,9 @@ public class Partner {
     @Column(columnDefinition = "VARCHAR(100) COMMENT '파트너사 이름'")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '파트너사 상태'")
-    private String status;
+    private PartnerStatus status;
 
     @Column(columnDefinition = "VARCHAR(100) COMMENT '파트너사 주소'")
     private String address;

@@ -1,5 +1,7 @@
 package com.fast.admin.model.entity;
 
+import com.fast.admin.model.enumClass.AdminUserRole;
+import com.fast.admin.model.enumClass.AdminUserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,11 +36,13 @@ public class AdminUser {
     @Column(columnDefinition = "VARCHAR(100) COMMENT '비밀번호'")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '회원 상태'")
-    private String status;
+    private AdminUserStatus status;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '회원 권한'")
-    private String role;
+    private AdminUserRole role;
 
     @Column(columnDefinition = "DATETIME COMMENT '마지막 접근 일자'")
     private LocalDateTime lastLoginAt;

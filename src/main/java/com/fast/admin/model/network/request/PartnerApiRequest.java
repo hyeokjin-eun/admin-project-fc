@@ -1,5 +1,6 @@
 package com.fast.admin.model.network.request;
 
+import com.fast.admin.model.enumClass.PartnerStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class PartnerApiRequest {
 
     private String name;
 
-    private String status;
+    private PartnerStatus status;
 
     private String address;
 

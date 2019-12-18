@@ -1,5 +1,6 @@
 package com.fast.admin.model.network.request;
 
+import com.fast.admin.model.enumClass.ItemStatus;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class ItemApiRequest {
 
     private Long id;
 
-    private String status;
+    private ItemStatus status;
 
     private String name;
 
