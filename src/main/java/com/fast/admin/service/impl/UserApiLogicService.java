@@ -1,14 +1,14 @@
-package com.fast.admin.service;
+package com.fast.admin.service.impl;
 
 import com.fast.admin.model.entity.User;
 import com.fast.admin.model.enumClass.UserStatus;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.UserApiRequest;
 import com.fast.admin.model.network.response.UserApiResponse;
+import com.fast.admin.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResponse, User> {
@@ -81,9 +81,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
      */
     @Override
     public Header delete(Long id) {
-        Optional<User> optional = baseRepository.findById(id);
-
-        return optional.map(user -> {
+        return baseRepository.findById(id).map(user -> {
             baseRepository.delete(user);
             return Header.OK();
         }).orElseGet(() -> Header.ERROR("데이터 없음"));

@@ -1,9 +1,10 @@
-package com.fast.admin.service;
+package com.fast.admin.service.impl;
 
 import com.fast.admin.model.entity.Category;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.CategoryApiRequest;
 import com.fast.admin.model.network.response.CategoryApiResponse;
+import com.fast.admin.service.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service

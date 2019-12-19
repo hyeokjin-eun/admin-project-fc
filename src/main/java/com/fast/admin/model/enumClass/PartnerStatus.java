@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PartnerStatus {
 
-    REGISTERED(0, "등록", "상품 등록 상태"),
-    UNREGISTERED(1, "해지", "상품 해지 상태"),
-    WAITING(2, "검수", "상품 검수 상태");
+    REGISTERED(0, "등록", "파트너사 등록 상태"),
+    UNREGISTERED(1, "해지", "파트너사 해지 상태"),
+    WAITING(2, "검수", "파트너사 검수 상태");
 
     private Integer id;
 

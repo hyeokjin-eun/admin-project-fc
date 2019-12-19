@@ -1,4 +1,4 @@
-package com.fast.admin.service;
+package com.fast.admin.service.impl;
 
 import com.fast.admin.model.entity.OrderDetail;
 import com.fast.admin.model.network.Header;
@@ -6,6 +6,7 @@ import com.fast.admin.model.network.request.OrderDetailApiRequest;
 import com.fast.admin.model.network.response.OrderDetailApiResponse;
 import com.fast.admin.repository.ItemRepository;
 import com.fast.admin.repository.OrderGroupRepository;
+import com.fast.admin.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

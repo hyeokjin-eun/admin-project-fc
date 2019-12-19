@@ -1,10 +1,11 @@
-package com.fast.admin.service;
+package com.fast.admin.service.impl;
 
 import com.fast.admin.model.entity.Item;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.ItemApiRequest;
 import com.fast.admin.model.network.response.ItemApiResponse;
 import com.fast.admin.repository.PartnerRepository;
+import com.fast.admin.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
