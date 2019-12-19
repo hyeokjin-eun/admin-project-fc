@@ -7,7 +7,12 @@ import com.fast.admin.model.network.response.PartnerApiResponse;
 import com.fast.admin.repository.CategoryRepository;
 import com.fast.admin.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PartnerApiLogicService extends BaseService<PartnerApiRequest, PartnerApiResponse, Partner> {
@@ -39,7 +44,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
         Partner newPartner = baseRepository.save(partner);
 
-        return response(newPartner);
+        return Header.OK(response(newPartner));
     }
 
     /**
@@ -51,6 +56,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
     public Header<PartnerApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -80,6 +86,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 })
                 .map(partner -> baseRepository.save(partner))
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -99,12 +106,26 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
     }
 
     /**
-     * Header <Partner Api Response> Create
-     * @param partner Partner Info
-     * @return Header <Partner Api Response>
+     * Partner Search
+     * @param pageable Page Info
+     * @return Partner List
      */
-    public Header<PartnerApiResponse> response(Partner partner) {
-        PartnerApiResponse partnerApiResponse = PartnerApiResponse.builder()
+    @Override
+    public Header<List<PartnerApiResponse>> search(Pageable pageable) {
+        Page<Partner> partners = baseRepository.findAll(pageable);
+        List<PartnerApiResponse> partnerApiResponseList = partners.stream()
+                .map(this::response)
+                .collect(Collectors.toList());
+        return Header.OK(partnerApiResponseList);
+    }
+
+    /**
+     * Partner Api Response Create
+     * @param partner Partner Info
+     * @return Partner Api Response
+     */
+    public PartnerApiResponse response(Partner partner) {
+        return PartnerApiResponse.builder()
                 .id(partner.getId())
                 .name(partner.getName())
                 .status(partner.getStatus())
@@ -117,7 +138,5 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 .unregisteredAt(partner.getUnregisteredAt())
                 .categoryId(partner.getCategory().getId())
                 .build();
-
-        return Header.OK(partnerApiResponse);
     }
 }

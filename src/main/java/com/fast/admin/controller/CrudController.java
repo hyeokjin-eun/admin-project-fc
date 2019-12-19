@@ -5,8 +5,13 @@ import com.fast.admin.model.network.Header;
 import com.fast.admin.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -61,5 +66,12 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
     public Header delete(@PathVariable Long id) {
         log.info("Delete : {}", id);
         return baseService.delete(id);
+    }
+
+    @Override
+    @GetMapping("")
+    public Header<List<Res>> search(@PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 20) Pageable pageable) {
+        log.info("Search : {}", pageable);
+        return null;
     }
 }

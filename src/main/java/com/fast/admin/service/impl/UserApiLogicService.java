@@ -98,6 +98,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
      * @param pageable Page Info
      * @return User List
      */
+    @Override
     public Header<List<UserApiResponse>> search(Pageable pageable) {
         Page<User> users = baseRepository.findAll(pageable);
         List<UserApiResponse> userApiResponseList = users.stream()
@@ -107,12 +108,12 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
     }
 
     /**
-     * Header <User Api Response> Create
+     * User Api Response Create
      * @param user User Info
-     * @return Header <User Api Response>
+     * @return User Api Response
      */
     private UserApiResponse response(User user) {
-        UserApiResponse userApiResponse = UserApiResponse.builder()
+        return UserApiResponse.builder()
                 .id(user.getId())
                 .account(user.getAccount())
                 .password(user.getPassword())
@@ -122,7 +123,5 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                 .registeredAt(user.getRegisteredAt())
                 .unregisteredAt(user.getUnregisteredAt())
                 .build();
-
-        return userApiResponse;
     }
 }
