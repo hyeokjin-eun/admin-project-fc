@@ -6,9 +6,13 @@ import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.UserApiRequest;
 import com.fast.admin.model.network.response.UserApiResponse;
 import com.fast.admin.service.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResponse, User> {
@@ -33,7 +37,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
         User newUser = baseRepository.save(user);
 
-        return response(newUser);
+        return Header.OK(response(newUser));
     }
 
     /**
@@ -45,6 +49,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
     public Header<UserApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -71,6 +76,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                 })
                 .map(user -> baseRepository.save(user))
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -88,11 +94,24 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
     }
 
     /**
+     * User Search
+     * @param pageable Page Info
+     * @return User List
+     */
+    public Header<List<UserApiResponse>> search(Pageable pageable) {
+        Page<User> users = baseRepository.findAll(pageable);
+        List<UserApiResponse> userApiResponseList = users.stream()
+                .map(this::response)
+                .collect(Collectors.toList());
+        return Header.OK(userApiResponseList);
+    }
+
+    /**
      * Header <User Api Response> Create
      * @param user User Info
      * @return Header <User Api Response>
      */
-    private Header<UserApiResponse> response(User user) {
+    private UserApiResponse response(User user) {
         UserApiResponse userApiResponse = UserApiResponse.builder()
                 .id(user.getId())
                 .account(user.getAccount())
@@ -104,6 +123,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                 .unregisteredAt(user.getUnregisteredAt())
                 .build();
 
-        return Header.OK(userApiResponse);
+        return userApiResponse;
     }
 }
