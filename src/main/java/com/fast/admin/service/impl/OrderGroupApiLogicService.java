@@ -125,7 +125,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
      * @param orderGroup Order Group Info
      * @return Order Group Api Response
      */
-    private OrderGroupApiResponse response(OrderGroup orderGroup) {
+    public OrderGroupApiResponse response(OrderGroup orderGroup) {
         return OrderGroupApiResponse.builder()
                 .id(orderGroup.getId())
                 .status(orderGroup.getStatus())

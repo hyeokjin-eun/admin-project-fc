@@ -1,11 +1,18 @@
 package com.fast.admin.service.impl;
 
+import com.fast.admin.model.entity.OrderDetail;
+import com.fast.admin.model.entity.OrderGroup;
 import com.fast.admin.model.entity.User;
 import com.fast.admin.model.enumClass.UserStatus;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.model.network.request.UserApiRequest;
+import com.fast.admin.model.network.response.ItemApiResponse;
+import com.fast.admin.model.network.response.OrderGroupApiResponse;
 import com.fast.admin.model.network.response.UserApiResponse;
+import com.fast.admin.model.network.response.UserOrderInfoApiResponse;
+import com.fast.admin.repository.UserRepository;
 import com.fast.admin.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +23,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResponse, User> {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderGroupApiLogicService orderGroupApiLogicService;
+
+    @Autowired
+    private ItemApiLogicService itemApiLogicService;
 
     /**
      * User Create
@@ -64,15 +80,13 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
         return baseRepository.findById(userApiRequest.getId())
                 .map(user -> {
-                    user.setAccount(userApiRequest.getAccount())
+                    return user.setAccount(userApiRequest.getAccount())
                             .setPassword(userApiRequest.getPassword())
                             .setStatus(userApiRequest.getStatus())
                             .setPhoneNumber(userApiRequest.getPhoneNumber())
                             .setEmail(userApiRequest.getEmail())
                             .setRegisteredAt(userApiRequest.getRegisteredAt())
                             .setUnregisteredAt(userApiRequest.getUnregisteredAt());
-
-                    return user;
                 })
                 .map(user -> baseRepository.save(user))
                 .map(this::response)
@@ -108,6 +122,37 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
     }
 
     /**
+     * User Order Info
+     * @param id User Id
+     * @return User Order Info
+     */
+    public Header<UserOrderInfoApiResponse> orderInfo(Long id) {
+        User user = userRepository.getOne(id);
+        UserApiResponse userApiResponse = response(user);
+
+        List<OrderGroup> orderGroupList = user.getOrderGroupList();
+        List<OrderGroupApiResponse> orderGroupApiResponseList = orderGroupList.stream()
+                .map(orderGroup -> {
+                     OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup);
+                     List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
+                             .map(OrderDetail::getItem)
+                             .map(item -> itemApiLogicService.response(item))
+                             .collect(Collectors.toList());
+
+                     orderGroupApiResponse.setItemApiResponseList(itemApiResponseList);
+                     return orderGroupApiResponse;
+                })
+                .collect(Collectors.toList());
+
+        userApiResponse.setOrderGroupApiResponseList(orderGroupApiResponseList);
+        UserOrderInfoApiResponse userOrderInfoApiResponse = UserOrderInfoApiResponse.builder()
+                .userApiResponse(userApiResponse)
+                .build();
+
+        return Header.OK(userOrderInfoApiResponse);
+    }
+
+    /**
      * User Api Response Create
      * @param user User Info
      * @return User Api Response
@@ -124,4 +169,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                 .unregisteredAt(user.getUnregisteredAt())
                 .build();
     }
+
+
 }
