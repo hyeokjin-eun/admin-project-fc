@@ -28,6 +28,7 @@ public class OrderDetail {
     @Column(columnDefinition = "BIGINT(20) COMMENT 'OrderDetail Index'")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(50) COMMENT '주문상태'")
     private OrderStatus status;
 
