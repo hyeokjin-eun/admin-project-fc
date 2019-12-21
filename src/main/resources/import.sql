@@ -32,3 +32,10 @@ INSERT INTO item (brand_name, content, created_at, created_by, `name`, price, re
 -- Admin User Create
 INSERT INTO admin_user (account, created_at, created_by, last_login_at, login_fail_count, password, password_updated_at, registered_at, `role`, status) VALUES ('ADMIN01', NOW(), 'AdminServer', NOW(), 0, 'ADMIN01', NOW(), NOW(), 'SUPER_MANAGER', 'REGISTERED');
 INSERT INTO admin_user (account, created_at, created_by, last_login_at, login_fail_count, password, password_updated_at, registered_at, `role`, status) VALUES ('ADMIN02', NOW(), 'AdminServer', NOW(), 0, 'ADMIN02', NOW(), NOW(), 'MANAGER', 'REGISTERED');
+
+-- Order Group
+INSERT INTO order_group (arrival_date, created_at, created_by, order_at, order_type, payment_type, rev_address, rev_name, status, total_price, total_quantity, user_id) VALUES (DATE_ADD(NOW(), INTERVAL 2 DAY), NOW(), 'AdminServer', NOW(), 'ALL', 'CARD', '서울시 배송받을 집 1-1', '받을사람1', 'WAITING', 1000000.0000, 1, 1);
+
+-- Order Detail
+INSERT INTO order_detail (arrival_date, created_at, created_by, quantity, status, total_price, item_id, order_group_id) VALUES (DATE_ADD(NOW(), INTERVAL 2 DAY), NOW(), 'AdminServer', 1, 'WAITING', 1000000.0000, 1, 1);
+
