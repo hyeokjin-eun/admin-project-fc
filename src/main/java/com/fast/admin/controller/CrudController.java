@@ -3,6 +3,7 @@ package com.fast.admin.controller;
 import com.fast.admin.inter.CrudInterface;
 import com.fast.admin.model.network.Header;
 import com.fast.admin.service.BaseService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
      */
     @Override
     @PostMapping("")
+    @ApiOperation(value = "생성 API")
     public Header<Res> create(@RequestBody Header<Req> request) {
         log.info("Create : {}", request);
         return baseService.create(request);
@@ -39,6 +41,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
      */
     @Override
     @GetMapping("{id}")
+    @ApiOperation(value = "조회 API")
     public Header<Res> read(@PathVariable Long id) {
         log.info("Read : {}", id);
         return baseService.read(id);
@@ -51,6 +54,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
      */
     @Override
     @PutMapping("")
+    @ApiOperation(value = "수정 API")
     public Header<Res> update(@RequestBody Header<Req> request) {
         log.info("Update : {}", request);
         return baseService.update(request);
@@ -63,13 +67,20 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
      */
     @Override
     @DeleteMapping("{id}")
+    @ApiOperation(value = "삭제 API")
     public Header delete(@PathVariable Long id) {
         log.info("Delete : {}", id);
         return baseService.delete(id);
     }
 
+    /**
+     * Base Search
+     * @param pageable Page Info
+     * @return Search Info
+     */
     @Override
     @GetMapping("")
+    @ApiOperation(value = "검색 API")
     public Header<List<Res>> search(@PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 20) Pageable pageable) {
         log.info("Search : {}", pageable);
         return null;
