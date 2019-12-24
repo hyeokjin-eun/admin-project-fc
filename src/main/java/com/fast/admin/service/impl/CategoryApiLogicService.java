@@ -17,6 +17,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Create
+     *
      * @param request Category Info
      * @return New Category Info
      */
@@ -36,6 +37,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Read
+     *
      * @param id Category Id
      * @return Category Info
      */
@@ -49,6 +51,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Update
+     *
      * @param request Category Info
      * @return Category Info
      */
@@ -72,6 +75,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Delete
+     *
      * @param id Category Id
      * @return Header
      */
@@ -87,6 +91,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Search
+     *
      * @param pageable Page Info
      * @return Category List
      */
@@ -102,6 +107,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     /**
      * Category Api Response Create
+     *
      * @param category Category Info
      * @return Category Api Response
      */

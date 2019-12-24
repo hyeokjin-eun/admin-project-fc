@@ -26,6 +26,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Create
+     *
      * @param request Order Detail Info
      * @return New Order Detail Info
      */
@@ -48,6 +49,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Read
+     *
      * @param id Order Detail Id
      * @return Order Detail Info
      */
@@ -61,6 +63,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Update
+     *
      * @param request Order Detail Info
      * @return Order Detail Info
      */
@@ -85,6 +88,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Delete
+     *
      * @param id Order Detail Id
      * @return Header
      */
@@ -100,6 +104,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Search
+     *
      * @param pageable Page Info
      * @return Order Detail List
      */
@@ -115,6 +120,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
 
     /**
      * Order Detail Api Response Create
+     *
      * @param orderDetail Order Detail Info
      * @return Order Detail Api Response
      */

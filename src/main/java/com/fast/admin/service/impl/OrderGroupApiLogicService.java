@@ -22,6 +22,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Create
+     *
      * @param request Order Group Info
      * @return New Order Group Info
      */
@@ -49,6 +50,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Read
+     *
      * @param id Order Group Id
      * @return Order Group Info
      */
@@ -62,6 +64,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Update
+     *
      * @param request Order Group Info
      * @return Order Group Info
      */
@@ -92,6 +95,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Delete
+     *
      * @param id Order Group Id
      * @return Header
      */
@@ -107,6 +111,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Search
+     *
      * @param pageable Page Info
      * @return Order Group List
      */
@@ -122,6 +127,7 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
 
     /**
      * Order Group Api Response Create
+     *
      * @param orderGroup Order Group Info
      * @return Order Group Api Response
      */

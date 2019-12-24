@@ -23,6 +23,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
 
     /**
      * Base Create
+     *
      * @param request Entity Info
      * @return New Entity
      */
@@ -36,6 +37,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
 
     /**
      * Base Read
+     *
      * @param id Entity Id
      * @return Read Entity
      */
@@ -49,6 +51,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
 
     /**
      * Base Update
+     *
      * @param request Entity Info
      * @return Update Entity
      */
@@ -62,6 +65,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
 
     /**
      * Base Delete
+     *
      * @param id Entity Id
      * @return Header
      */
@@ -75,6 +79,7 @@ public abstract class CrudController<Req, Res, Entity> implements CrudInterface<
 
     /**
      * Base Search
+     *
      * @param pageable Page Info
      * @return Search Info
      */

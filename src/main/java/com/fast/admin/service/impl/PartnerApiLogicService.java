@@ -22,6 +22,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Create
+     *
      * @param request Partner Info
      * @return New Partner Info
      */
@@ -49,6 +50,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Read
+     *
      * @param id Partner Id
      * @return Partner Info
      */
@@ -62,6 +64,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Update
+     *
      * @param request Partner Info
      * @return Partner Info
      */
@@ -92,6 +95,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Delete
+     *
      * @param id Partner Id
      * @return Header
      */
@@ -107,6 +111,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Search
+     *
      * @param pageable Page Info
      * @return Partner List
      */
@@ -121,6 +126,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 
     /**
      * Partner Api Response Create
+     *
      * @param partner Partner Info
      * @return Partner Api Response
      */

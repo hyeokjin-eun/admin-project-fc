@@ -35,6 +35,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Create
+     *
      * @param request User Info
      * @return New User Info
      */
@@ -58,6 +59,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Read
+     *
      * @param id User Id
      * @return User Info
      */
@@ -71,6 +73,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Update
+     *
      * @param request User Info
      * @return User Info
      */
@@ -96,6 +99,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Delete
+     *
      * @param id User Id
      * @return Header
      */
@@ -109,6 +113,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Search
+     *
      * @param pageable Page Info
      * @return User List
      */
@@ -123,6 +128,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Order Info
+     *
      * @param id User Id
      * @return User Order Info
      */
@@ -133,14 +139,14 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
         List<OrderGroup> orderGroupList = user.getOrderGroupList();
         List<OrderGroupApiResponse> orderGroupApiResponseList = orderGroupList.stream()
                 .map(orderGroup -> {
-                     OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup);
-                     List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
-                             .map(OrderDetail::getItem)
-                             .map(item -> itemApiLogicService.response(item))
-                             .collect(Collectors.toList());
+                    OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup);
+                    List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
+                            .map(OrderDetail::getItem)
+                            .map(item -> itemApiLogicService.response(item))
+                            .collect(Collectors.toList());
 
-                     orderGroupApiResponse.setItemApiResponseList(itemApiResponseList);
-                     return orderGroupApiResponse;
+                    orderGroupApiResponse.setItemApiResponseList(itemApiResponseList);
+                    return orderGroupApiResponse;
                 })
                 .collect(Collectors.toList());
 
@@ -154,6 +160,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Api Response Create
+     *
      * @param user User Info
      * @return User Api Response
      */

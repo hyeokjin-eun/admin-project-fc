@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.GET,responseMessageArrayList())
+                .globalResponseMessage(RequestMethod.GET, responseMessageArrayList())
                 .globalResponseMessage(RequestMethod.POST, responseMessageArrayList())
                 .globalResponseMessage(RequestMethod.PUT, responseMessageArrayList())
                 .globalResponseMessage(RequestMethod.DELETE, responseMessageArrayList());
