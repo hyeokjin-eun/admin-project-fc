@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/orderDetail")
-@Api(description = "주문 상세 API")
+@Api("주문 상세 API")
 public class OrderDetailApiController extends CrudController<OrderDetailApiRequest, OrderDetailApiResponse, OrderDetail> {
 }

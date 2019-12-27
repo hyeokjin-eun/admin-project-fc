@@ -17,7 +17,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Create
-     *
      * @param request Admin User Info
      * @return New Admin User Info
      */
@@ -44,7 +43,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Read
-     *
      * @param id Admin User Id
      * @return Admin User Info
      */
@@ -58,7 +56,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Update
-     *
      * @param request Admin User Info
      * @return Admin User Info
      */
@@ -88,7 +85,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Delete
-     *
      * @param id Admin User Id
      * @return Header
      */
@@ -104,7 +100,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Search
-     *
      * @param pageable Page Info
      * @return Admin User List
      */
@@ -120,7 +115,6 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
 
     /**
      * Admin User Api Response Create
-     *
      * @param adminUser Admin User Info
      * @return Admin User Api Response
      */

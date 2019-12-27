@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/partner")
-@Api(description = "파트너 API")
+@Api("파트너 API")
 public class PartnerApiController extends CrudController<PartnerApiRequest, PartnerApiResponse, Partner> {
 }

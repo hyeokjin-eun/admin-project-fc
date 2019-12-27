@@ -18,12 +18,15 @@ import java.util.stream.Collectors;
 @Service
 public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResponse, Item> {
 
+    private final PartnerRepository partnerRepository;
+
     @Autowired
-    private PartnerRepository partnerRepository;
+    public ItemApiLogicService(PartnerRepository partnerRepository) {
+        this.partnerRepository = partnerRepository;
+    }
 
     /**
      * Item Create
-     *
      * @param request Item Info
      * @return New Item Info
      */
@@ -49,7 +52,6 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 
     /**
      * Item Read
-     *
      * @param id Item Id
      * @return Item Info
      */
@@ -63,7 +65,6 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 
     /**
      * Item Update
-     *
      * @param request Item Info
      * @return Item Info
      */
@@ -93,7 +94,6 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 
     /**
      * Item Delete
-     *
      * @param id Item Id
      * @return Header
      */
@@ -109,7 +109,6 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 
     /**
      * Item Search
-     *
      * @param pageable Page Info
      * @return Item List
      */
@@ -125,7 +124,6 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 
     /**
      * Item Api Response Create
-     *
      * @param item Item Info
      * @return Item Api Response
      */

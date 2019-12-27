@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "사용자 API")
 public class UserApiController extends CrudController<UserApiRequest, UserApiResponse, User> {
 
+    private final UserApiLogicService userApiLogicService;
+
     @Autowired
-    private UserApiLogicService userApiLogicService;
+    public UserApiController(UserApiLogicService userApiLogicService) {
+        this.userApiLogicService = userApiLogicService;
+    }
 
     @GetMapping("{id}/orderInfo")
     @ApiOperation(value = "사용자 주문 내역 조회 API")

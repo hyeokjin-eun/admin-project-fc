@@ -10,7 +10,6 @@ import com.fast.admin.model.network.response.ItemApiResponse;
 import com.fast.admin.model.network.response.OrderGroupApiResponse;
 import com.fast.admin.model.network.response.UserApiResponse;
 import com.fast.admin.model.network.response.UserOrderInfoApiResponse;
-import com.fast.admin.repository.UserRepository;
 import com.fast.admin.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,18 +23,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResponse, User> {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final OrderGroupApiLogicService orderGroupApiLogicService;
+
+    private final ItemApiLogicService itemApiLogicService;
 
     @Autowired
-    private OrderGroupApiLogicService orderGroupApiLogicService;
-
-    @Autowired
-    private ItemApiLogicService itemApiLogicService;
+    public UserApiLogicService(OrderGroupApiLogicService orderGroupApiLogicService, ItemApiLogicService itemApiLogicService) {
+        this.orderGroupApiLogicService = orderGroupApiLogicService;
+        this.itemApiLogicService = itemApiLogicService;
+    }
 
     /**
      * User Create
-     *
      * @param request User Info
      * @return New User Info
      */
@@ -59,7 +58,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Read
-     *
      * @param id User Id
      * @return User Info
      */
@@ -73,7 +71,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Update
-     *
      * @param request User Info
      * @return User Info
      */
@@ -82,15 +79,13 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
         UserApiRequest userApiRequest = request.getData();
 
         return baseRepository.findById(userApiRequest.getId())
-                .map(user -> {
-                    return user.setAccount(userApiRequest.getAccount())
-                            .setPassword(userApiRequest.getPassword())
-                            .setStatus(userApiRequest.getStatus())
-                            .setPhoneNumber(userApiRequest.getPhoneNumber())
-                            .setEmail(userApiRequest.getEmail())
-                            .setRegisteredAt(userApiRequest.getRegisteredAt())
-                            .setUnregisteredAt(userApiRequest.getUnregisteredAt());
-                })
+                .map(user -> user.setAccount(userApiRequest.getAccount())
+                        .setPassword(userApiRequest.getPassword())
+                        .setStatus(userApiRequest.getStatus())
+                        .setPhoneNumber(userApiRequest.getPhoneNumber())
+                        .setEmail(userApiRequest.getEmail())
+                        .setRegisteredAt(userApiRequest.getRegisteredAt())
+                        .setUnregisteredAt(userApiRequest.getUnregisteredAt()))
                 .map(user -> baseRepository.save(user))
                 .map(this::response)
                 .map(Header::OK)
@@ -99,7 +94,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Delete
-     *
      * @param id User Id
      * @return Header
      */
@@ -113,7 +107,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Search
-     *
      * @param pageable Page Info
      * @return User List
      */
@@ -128,12 +121,11 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Order Info
-     *
      * @param id User Id
      * @return User Order Info
      */
     public Header<UserOrderInfoApiResponse> orderInfo(Long id) {
-        User user = userRepository.getOne(id);
+        User user = baseRepository.getOne(id);
         UserApiResponse userApiResponse = response(user);
 
         List<OrderGroup> orderGroupList = user.getOrderGroupList();
@@ -142,7 +134,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                     OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup);
                     List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
                             .map(OrderDetail::getItem)
-                            .map(item -> itemApiLogicService.response(item))
+                            .map(itemApiLogicService::response)
                             .collect(Collectors.toList());
 
                     orderGroupApiResponse.setItemApiResponseList(itemApiResponseList);
@@ -160,7 +152,6 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
 
     /**
      * User Api Response Create
-     *
      * @param user User Info
      * @return User Api Response
      */

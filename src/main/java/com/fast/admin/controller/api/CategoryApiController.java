@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/category")
-@Api(description = "카테고리 API")
+@Api("카테고리 API")
 public class CategoryApiController extends CrudController<CategoryApiRequest, CategoryApiResponse, Category> {
 }

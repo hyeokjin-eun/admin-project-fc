@@ -10,8 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/pages")
 public class PageController {
 
+    private final AdminMenuService adminMenuService;
+
     @Autowired
-    private AdminMenuService adminMenuService;
+    public PageController(AdminMenuService adminMenuService) {
+        this.adminMenuService = adminMenuService;
+    }
 
     @RequestMapping(path = {""})
     public ModelAndView index() {
